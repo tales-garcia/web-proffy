@@ -1,0 +1,77 @@
+#page-teacher-list {
+    width: 100vw;
+    height: 100vh;
+}
+
+#search-teachers {
+    margin-top: 3.2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 16px;
+    grid-template-areas: "subject subject subject" "weekday weekday time";
+}
+
+#search-teachers label {
+    color: var(--color-text-in-primary);
+}
+
+#search-teachers .input-block:nth-child(1) {
+    grid-area: subject;
+}
+#search-teachers .input-block:nth-child(2) {
+    grid-area: weekday;
+}
+#search-teachers .input-block:nth-child(3) {
+    grid-area: time;
+}
+
+#page-teacher-list main {
+    margin: 3.2rem auto;
+    width: 90%;
+}
+
+@media(min-width: 700px) {
+    #page-teacher-list {
+        max-width: 100%;
+    }
+
+    #search-teachers {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
+        grid-template-areas: "subject weekday time";
+        column-gap: 16px;
+        position: absolute;
+        bottom: -28px;
+    }
+
+    #search-teachers .input-block[data-grid-area="subject"] {
+        grid-area: subject;
+    }
+    #search-teachers .input-block[data-grid-area="weekday"] {
+        grid-area: weekday;
+    }
+    #search-teachers .input-block[data-grid-area="time"] {
+        grid-area: time;
+    }
+
+    #search-teachers .input-block + .input-block,
+    #search-teachers .select-block + .select-block,
+    #search-teachers .input-block + .select-block,
+    #search-teachers .select-block + .input-block
+    {
+        margin-top: 0;
+    }
+
+    #search-teachers .input-block {
+        grid-area: unset;
+    }
+
+    #page-teacher-list main {
+        padding: 3.2rem 0;
+        max-width: 740px;
+        margin: 0 auto;
+    }
+
+    
+}
