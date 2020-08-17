@@ -31,3 +31,12 @@
     right: 1.6rem;
     bottom: 0;
 }
+
+.input-block .toggle-show-password {
+    height: 100%;
+    float: right;
+    margin-right: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,6 +1,5 @@
 import React, { useRef, FormEvent, useState } from 'react';
 import Input from '../../components/Input';
-import back from '../../assets/images/success-background.svg';
 import logo from '../../assets/images/logo.svg';
 
 import './styles.css';
@@ -30,8 +29,8 @@ function Login() {
 
                         <Input
                         autoComplete='off'
-                        type="password"
                         label="Senha"
+                        type="password"
                         value={password}
                         onChange={e => {
                             setPassword(e.target.value);
@@ -56,7 +55,6 @@ function Login() {
                 </form>
             </div>
             <div className="page-login-background">
-                {/* <img src={back} alt="Background image" className="background-image"/> */}
                 <div className="container">
                     <div>
                         <img src={logo} alt="Logo" className="logo"/>
