@@ -1,16 +1,18 @@
-import React, { useRef, FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Input from '../../components/Input';
 import logo from '../../assets/images/logo.svg';
 
 import './styles.css';
 import api from '../../services/api';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
-    const checkBox = useRef<HTMLInputElement>(null);
+    //const history = useHistory();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
 
-    let rememberMe = false;
     return (
         <div className="page-login">
             <div className="page-form-container">
@@ -26,7 +28,7 @@ function Login() {
                             setEmail(e.target.value);
                         }}
                         className="login-input"/>
-
+                        
                         <Input
                         autoComplete='off'
                         label="Senha"
@@ -41,16 +43,17 @@ function Login() {
                     <div className="form-footer-content">
                         <div className="form-options">
                             <div className="radio-group">
-                                <input ref={checkBox} onClick={() => {
-                                    if(checkBox.current) {
-                                        rememberMe = checkBox.current.checked;
-                                    }
-                                }} type="checkBox" name="remember-me"/>
-                                <label htmlFor="remember-me" className="remember-me-label">Lembrar-me</label>
+                                <span className={rememberMe ? "remember-me enabled" : "remember-me"} onClick={() => {setRememberMe(!rememberMe)}} />
+                                <label>Lembrar-me</label>
                             </div>
                             <p id="forgot-your-password">Esqueceu sua senha?</p>
                         </div>
-                        <button className="page-login-button">Entrar</button>
+                        <button className={"page-login-button" + (function() {
+                            if(!password || !email) {
+                                return " disabled";
+                            }
+                            return "";
+                        })()}>Entrar</button>
                     </div>
                 </form>
             </div>
@@ -73,10 +76,15 @@ function Login() {
                 password
             }
         }).then(res => {
-            if(res.data.user) {
-                console.log('Login realizado com sucesso!')
+            switch(res.data.status) {
+                case 200:
+                    console.log('Login realizado com sucesso!')
+                break;
+                default:
+                    console.log(res.data.message)
+                break;
             }
-        })
+        }).catch(err => {console.error('Something went wrong: \n' + err)});
     }
 }
 
