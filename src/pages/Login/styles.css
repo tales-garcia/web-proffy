@@ -106,6 +106,14 @@
     color: var(--color-text-base);
 }
 
+.page-form .input-block.error {
+    border: 1px solid var(--color-remove);
+}
+.page-form .input-block.error .login-input {
+    color: var(--color-remove);
+    font-weight: 700;
+}
+
 .page-form .input-block:focus-within .login-input {
     font-size: 2rem;
 }
@@ -173,4 +181,12 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 1rem;
+}
+
+.page-form-container #error-message {
+    color: var(--color-remove);
+    width: 100%;
+    font: 700 1.2rem Archivo;
+    text-align: center;
+    margin-top: 1rem;
 }

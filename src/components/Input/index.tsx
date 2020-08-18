@@ -5,8 +5,8 @@ import './styles.css';
 
 interface inputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string,
-    label: string
-
+    label: string,
+    divClass?: string
 }
 
 const Input : React.FC<inputProps> = ({ label, name, ...rest }) => {
@@ -20,7 +20,7 @@ const Input : React.FC<inputProps> = ({ label, name, ...rest }) => {
         }
     }
     return (
-        <div className="input-block">
+        <div className={"input-block" + (rest.divClass ? rest.divClass : "")}>
             <label htmlFor={name}>{label}</label>
             {(() => {
                 if(rest.type === "password") {

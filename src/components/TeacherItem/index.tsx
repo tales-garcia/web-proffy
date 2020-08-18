@@ -2,14 +2,14 @@ import React from 'react';
 import whatsapp from '../../assets/images/icons/whatsapp.svg';
 import './styles.css';
 import api from '../../services/api';
-import { Teacher } from '../../pages/TeacherList';
+import { Teacher } from '../../App';
 
 interface teacherItemProps {
     user_data: Teacher
 }
 
 const TeacherItem: React.FC<teacherItemProps> = (props) => {
-    async function createConnection(user_id: number) {
+    async function createConnection(user_id: string) {
         await api.post("connections", {
             user_id
         });
@@ -36,7 +36,7 @@ const TeacherItem: React.FC<teacherItemProps> = (props) => {
             </p>
             <button type="button" onClick={() => {
                 window.open(`https://wa.me/${props.user_data.whatsapp}`);
-                createConnection(props.user_data.id);
+                createConnection(props.user_data._id);
             }}>
                 <img src={whatsapp} alt="whatsapp"/>
                 Entrar em contato

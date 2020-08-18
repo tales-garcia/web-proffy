@@ -8,8 +8,9 @@ import purpleHeart from '../../assets/images/icons/purple-heart.svg';
 
 import './styles.css';
 import api from '../../services/api';
+import { UserRequired } from '../../routes';
 
-function Landing() {
+const Landing : React.FC<UserRequired> = () => {
 
     const [totalConnections, setTotalConnections] = useState(0);
 

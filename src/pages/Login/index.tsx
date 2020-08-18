@@ -4,14 +4,18 @@ import logo from '../../assets/images/logo.svg';
 
 import './styles.css';
 import api from '../../services/api';
-import { useHistory } from 'react-router-dom';
 
-function Login() {
-    //const history = useHistory();
+interface loginProps {
+    onLogin: Function
+}
+
+const Login : React.FC<loginProps> = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [errorField, setErrorField] = useState<string>('');
 
     return (
         <div className="page-login">
@@ -27,7 +31,8 @@ function Login() {
                         onChange={e => {
                             setEmail(e.target.value);
                         }}
-                        className="login-input"/>
+                        className={"login-input"}
+                        divClass={(errorField === 'email') ? " error" : ""} />
                         
                         <Input
                         autoComplete='off'
@@ -38,8 +43,10 @@ function Login() {
                             setPassword(e.target.value);
                         }}
                         name="password"
-                        className="login-input"/>
+                        className="login-input"
+                        divClass={(errorField === 'password') ? " error" : ""} />
                     </div>
+                    {errorMessage && <p id="error-message">{errorMessage}</p>}
                     <div className="form-footer-content">
                         <div className="form-options">
                             <div className="radio-group">
@@ -68,6 +75,11 @@ function Login() {
         </div>
     );
 
+    function showError(errMessage: string, errorFieldValue: string) {
+        setErrorMessage(errMessage);
+        setErrorField(errorFieldValue);
+    }
+
     function handleSubmit(ev: FormEvent) {
         ev.preventDefault();
         api.get('auth/login', {
@@ -78,10 +90,11 @@ function Login() {
         }).then(res => {
             switch(res.data.status) {
                 case 200:
-                    console.log('Login realizado com sucesso!')
+                    props.onLogin(res.data.token);
                 break;
-                default:
-                    console.log(res.data.message)
+                default: {
+                    showError(res.data.message, res.data.errorField);
+                }
                 break;
             }
         }).catch(err => {console.error('Something went wrong: \n' + err)});

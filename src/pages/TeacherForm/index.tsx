@@ -9,8 +9,9 @@ import './styles.css';
 import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 import api from '../../services/api';
+import { UserRequired } from '../../routes';
 
-function TeacherForm() {
+const TeacherForm : React.FC<UserRequired> = () => {
     const history = useHistory();
 
     const [name, setName] = useState('');

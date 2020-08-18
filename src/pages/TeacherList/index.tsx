@@ -5,18 +5,11 @@ import TeacherItem from '../../components/TeacherItem';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import api from '../../services/api';
+import { Teacher } from '../../App';
+import { UserRequired } from '../../routes';
 
-export interface Teacher {
-    id: number,
-    name: string,
-    avatar: string,
-    subject: string,
-    bio: string,
-    cost: string,
-    whatsapp: string,
-}
 
-function TeacherList() {
+const TeacherList : React.FC<UserRequired> = () => {
 
     const [week_day, setWeek_day] = useState('');
     const [subject, setSubject] = useState('');
@@ -96,7 +89,7 @@ function TeacherList() {
                 </form>
             </Header>
             <main>
-                {classes.map((user: Teacher) => <TeacherItem key={user.id} user_data={user} />)}
+                {classes.map((user: Teacher) => <TeacherItem key={user._id} user_data={user} />)}
             </main>
         </div>
     );
